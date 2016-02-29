@@ -198,12 +198,6 @@ def setrange():
     return flask.redirect(flask.url_for("choose"))
 
 
-#get calendars from session.calendars
-@app.route('/getcalendars', methods=['POST'])
-def getcalendars():
-    
-
-
 ####
 #
 #   Initialize session variables 
