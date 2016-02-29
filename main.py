@@ -27,7 +27,7 @@ import CONFIG
 app = flask.Flask(__name__)
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-CLIENT_SECRET_FILE = CONFIG.GOOGLE_LICENSE_KEY  ## You'll need this
+CLIENT_SECRET_FILE = "client_secret.json"  ## You'll need this
 APPLICATION_NAME = 'MeetMe class project'
 
 #############################
@@ -58,6 +58,7 @@ def choose():
 
     gcal_service = get_gcal_service(credentials)
     app.logger.debug("Returned from get_gcal_service")
+    ##Store Calendars
     flask.session['calendars'] = list_calendars(gcal_service)
     return render_template('index.html')
 
@@ -195,6 +196,13 @@ def setrange():
       daterange_parts[0], daterange_parts[1], 
       flask.session['begin_date'], flask.session['end_date']))
     return flask.redirect(flask.url_for("choose"))
+
+
+#get calendars from session.calendars
+@app.route('/getcalendars', methods=['POST'])
+def getcalendars():
+    
+
 
 ####
 #
