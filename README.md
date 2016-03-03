@@ -1,3 +1,7 @@
+David Chapman
+CIS 399
+Repo home: https://github.com/chapman3/proj6-Gcal
+On ix: chapman3/public_html/cis399/htbin/proj6-Gcal
 # proj6-Gcal
 Snarf appointment data from a selection of a user's Google calendars 
 
