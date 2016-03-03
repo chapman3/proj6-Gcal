@@ -62,6 +62,14 @@ def choose():
     flask.session['calendars'] = list_calendars(gcal_service)
     return render_template('index.html')
 
+"""
+@app.route("/list_busy")
+def list_busy():
+    calendars = flask.session['calendars']
+    for cal in calendars:
+        if 'transparency' in cal:
+
+"""
 ####
 #
 #  Google calendar authorization:
