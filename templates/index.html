@@ -4,28 +4,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" type="text/css"
-     href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css"
+      href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css"
 />
 
 <link rel="stylesheet" type="text/css"
- href="/static/js/node_modules/bootstrap-daterangepicker/daterangepicker.css"
+      href="/static/js/node_modules/bootstrap-daterangepicker/daterangepicker.css"
 />
 
 <link rel="stylesheet" type="text/css"
-    href="/static/css/busy.css"
+      href="/static/css/busy.css"
 />
-<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript"
+        src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js">
+</script>
 
 <!-- jquery from a content distribution network; probably cached -->
 <script type="text/javascript"
-     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 
 
 <!-- The rest of our javascript dependencies are bundled and -->
 <!-- 'minified' by 'browserify'  -->
-<script type="text/javascript" 
-   src="/static/js/busy.min.js">
+<script type="text/javascript"
+        src="/static/js/busy.min.js">
 </script>
 
 </head>
@@ -50,6 +52,11 @@
     </ul>
   {% endif %}
 {% endwith %}
+
+    <h3>Meeting Description</h3>
+    <input type="text" name="meet_desc">
+    <h3>Location</h3>
+    <input type="text" name="meet_loc">
 
 <h2>Date range</h2>
   <form action="/setrange" method="post">
@@ -76,9 +83,18 @@
        );
     });
   </script>
+  <br /><input type="submit" value="Choose" />
+  </form>
 
-<br /><input type="submit" value="Choose" />
-</form>
+  <h2>Time Range</h2>
+      <form action ="/timeselect" method="post">
+          <input type="text" name = "start_range">
+          to
+          <input type="text" name = "end_range">
+      </form>
+    <h2>Duration</h2>
+    <input type="text" name="meet_dur">
+
 
     <!--
     Show the calendar list (if we have it).  This will need to be turned into
@@ -90,6 +106,7 @@
   <div class="row">
   {% for cal in session.calendars if cal.selected %}
           <div class="col-md-4">
+              <input type ="checkbox" name="cal_check" value="{{cal.id}}">
 	   {{ cal.summary }}
           </div>
          {% if loop.index is divisibleby 3 %}
