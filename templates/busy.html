@@ -3,35 +3,42 @@
 <title>Appointments</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel=stylesheet type=text/css href="/static/css/propose.min.css">
-
-<!-- jquery doesn't follow npm rules; load it directly, not through -->
-<!-- @require -->
-<script
-     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-</script>
-
-
-<!-- The rest of our libraries are loaded with the minified version of -->
-<!-- our main javascript application file -->
-<script type="text/javascript" 
-   src="/static/js/propose.min.js">
-</script>
+<link rel="stylesheet" type="text/css"
+      href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css"
+/>
 
 <link rel="stylesheet" type="text/css"
-     href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+      href="/static/js/node_modules/bootstrap-daterangepicker/daterangepicker.css"
+/>
 
+<link rel="stylesheet" type="text/css"
+      href="/static/css/busy.css"
+/>
+<script type="text/javascript"
+        src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js">
+</script>
+
+<!-- jquery from a content distribution network; probably cached -->
+<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+
+
+<!-- The rest of our javascript dependencies are bundled and -->
+<!-- 'minified' by 'browserify'  -->
+<script type="text/javascript"
+        src="/static/js/busy.min.js">
+</script>
 
 </head>
-
 <body>
 <div class="container">
 
-<h1>Busy times</h1>
+
 
 <!--
   -- If there are any warnings or other messages from a prior action,
-  -- they appear above the rest of the content, just until the next 
+  -- they appear above the rest of the content, just until the next
   -- action.
   -->
 
@@ -45,45 +52,61 @@
   {% endif %}
 {% endwith %}
 
-<h2>Date range</h2>
-  <form action="/setrange" method="post">
-  <input type="text" name="daterange"
-    {% if session.daterange is defined %}
-         value="{{session.daterange}}"
-    {% endif %}
-     class="pull-left"
-     style="background: #fff; cursor: pointer; padding: 5px 10px;
-     border: 1px solid #ccc; width: 100%" >
-  <script type="text/javascript">
-  $(function() {
-  $('input[name="daterange"]').daterangepicker(
-    {    ranges: {
-           'Today': [moment(), moment()],
-           'Tomorrow':[moment().add(1, 'days'),
-                       moment().add(1, 'days')], 
-           'This week':[moment(), moment().endOf('week')],
-           'Next week':[moment().add(7, 'days').startOf('week'),
-                        moment().add(7, 'days').endOf('week')],
-           'This month':[moment(), moment().endOf('month')],
-           'Within two weeks':[moment(),moment().add(15, 'days')]
-        }}
-       );
-    });
-  </script>
-
-<input type="submit" value="Apply date range" />
-</form>
-
     <!--
-    The user is offered a chance to times that *do not* appear
-    as 'busy' in any of a selected set of their calendars (e.g., times
-    when they are in other meetings.
-
-    If we already have the list of calendars, we display the menu. 
-    If we don't, we provide a link that can be used to authorize
-    access to the calendars. 
+    Show the calendar list (if we have it).  This will need to be turned into
+    a form from which calendars can be picked. Up to three entries are
+    shown in each row (but the order is across then down; I would
+    prefer down then across).
     -->
 
-  </div>
+{% if session.cal_selection is defined  %}
+<h1>Busy times</h1>
+  <div class="row">
+  {% for event in session.busy_list %}
+          <div class="col-md-4">
+              <h4>Event: {{event.id}} Start: {{event.start.dateTime}} End: {{event.end.dateTime}}</h4>
+          </div>
+         {% if loop.index is divisibleby 1 %}
+          </div> <div class="row">
+         {% endif %}
+  {% endfor %}
 
+<h1>Free Times</h1>
+    <div class="row">
+  {% for event in session.free_list %}
+          <div class="col-md-4">
+              <h4>Event: {{event.id}} Start: {{event.start.dateTime}} End: {{event.end.dateTime}}</h4>
+          </div>
+         {% if loop.index is divisibleby 1 %}
+          </div> <div class="row">
+         {% endif %}
+  {% endfor %}
+    <button onclick="confirmSelection()">Confirm Busy and Free Times</button>
+  </div>
+{% endif %}
+
+    <script>
+        $SCRIPT_ROOT = {{request.script_root|tojson|safe}}
+
+    function confirmSelection(){
+
+    //TODO: confirmSelection() should generate an email link, not what is below
+
+        $('input[type=checkbox]').each(function(){
+            if(this.checked){
+            cal_selection.push(this.id)
+            }
+        });
+
+        $.ajax({
+            dataType: "json",
+            url: $SCRIPT_ROOT + '/showBusyFree',
+            data: {selection: cal_selection},
+            complete: function(){
+                location.assign($SCRIPT_ROOT + '/busy.html');}
+        });
+    }
+
+    </script>
+  </div>  <!-- container (for bootstrap) -->
   </body> </html>
