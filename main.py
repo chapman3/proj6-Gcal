@@ -62,14 +62,7 @@ def choose():
     flask.session['calendars'] = list_calendars(gcal_service)
     return render_template('index.html')
 
-"""
-@app.route("/list_busy")
-def list_busy():
-    calendars = flask.session['calendars']
-    for cal in calendars:
-        if 'transparency' in cal:
 
-"""
 ####
 #
 #  Google calendar authorization:
@@ -189,8 +182,18 @@ def oauth2callback():
 @app.route('/setrange', methods=['POST'])
 def setrange():
     """
-    User chose a date range with the bootstrap daterange
-    widget.
+    Assumptions:
+        User chose a daterange with the bootstrap daterange widget.
+        User entered a Meeting Description
+        User entered a Meeting Location
+        User entered a Meeting Timerange by supplying a possible start and end time for a meeting
+        User entered a Meeting Duration
+
+    args: none
+    returns: redirect to url_for("choose")
+
+    Process:
+        Store all prerequisite data in a session object.
     """
     app.logger.debug("Entering setrange")  
     flask.flash("Setrange gave us '{}'".format(
@@ -203,7 +206,29 @@ def setrange():
     app.logger.debug("Setrange parsed {} - {}  dates as {} - {}".format(
       daterange_parts[0], daterange_parts[1], 
       flask.session['begin_date'], flask.session['end_date']))
+    flask.session['meet_desc'] = request.form.get('meet_desc')
+    flask.session['meet_loc'] = request.form.get('meet_loc')
+    flask.session['meet_range_start'] = interpret_time(request.form.get('meet_range_start'))
+    flask.session['meet_range_end'] = interpret_time(request.form.get('meet_range_end'))
+    flask.session['meet_dur'] = request.form.get('meet_dur')
+
     return flask.redirect(flask.url_for("choose"))
+
+@app.route('/showBusyFree', methods=['POST'])
+def showBusyFree():
+
+    """
+    assumptions:
+        times have been chosen
+    args:
+        none
+    returns:
+        none
+    """
+    flask.session['cal_selection'] = request.args.getlist('selection')
+    createBusyList()
+    createFreeList()
+    return
 
 
 ####
@@ -274,7 +299,76 @@ def next_day(isotext):
 #  Functions (NOT pages) that return some information
 #
 ####
-  
+
+def createBusyList():
+    """
+    assumptions:
+        user has pulled in calendars
+    args:
+        none
+    returns:
+        stores busy list in session
+    """
+    busy_list = []
+    credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
+    service = get_gcal_service(credentials)
+
+    for cal in flask.session['cal_selection']:
+        events = service.events().list(calendarId=cal, pageToken=None).execute()
+        for event in events['items']:
+            #if transparent, not a busy event, continue loop
+            if ('transparency' in event ) and event['transparency'] == 'transparent':
+                continue
+            begin = arrow.get(event['start']['dateTime'])
+            end = arrow.get(event['end']['dateTime'])
+            if(checkEventRange(begin,end)):
+                new_event = {"desc": event['summary'], "begin": begin, "end": end}
+                busy_list.append(new_event)
+    flask.session['busy_list'] = busy_list
+
+def createFreeList():
+    """
+    assumptions:
+        user has pulled in calendars
+        busy_list has been stored in session
+    args:
+        none
+    returns:
+        stores free list in session
+    """
+
+    free_list = []
+
+    #TODO: use busy list and complement to create free list
+
+    flask.session['free_list'] = free_list
+
+def checkEventRange(start, end):
+    """
+    assumptions:
+        createBusyList has been called, thus only busy events are examined
+        events end on the same day they are started
+    args:
+        start: arrow object representing a calendar event's start time
+        end: arrow object representing a calendar event's end time
+    return:
+        true if in date/timerange
+        false if not in date/timerange
+    """
+    #check if correct daterange
+    if(end.date() < flask.session['begin_date']) or (start.date() > flask.session['end_date']):
+        return False
+
+    #check if correct timerange
+    elif(end.time() < flask.session['meet_start_time']) or (start.time() > flask.session['meet_end_time']):
+        return False
+
+    #if in range:
+    else:
+        return True
+
+
+
 def list_calendars(service):
     """
     Given a google 'service' object, return a list of
