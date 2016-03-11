@@ -52,22 +52,24 @@
     </ul>
   {% endif %}
 {% endwith %}
+    <form action="/setrange" method="post">
 
-    <h3>Meeting Description</h3>
+<h3>Meeting Description</h3>
     <input type="text" name="meet_desc">
-    <h3>Location</h3>
+
+<h3>Location</h3>
     <input type="text" name="meet_loc">
 
 <h2>Date range</h2>
-  <form action="/setrange" method="post">
-  <input type="text" name="daterange" size="12"
-    {% if session.daterange is defined %}
-         value="{{session.daterange}}"
-    {% endif %}
-     class="pull-down"
-     style="background: #fff; cursor: pointer; padding: 5px 10px;
-     border: 1px solid #ccc; width: 12em" >
-  <script type="text/javascript">
+
+    <input type="text" name="daterange" size="12"
+        {% if session.daterange is defined %}
+           value="{{session.daterange}}"
+        {% endif %}
+        class="pull-down"
+        style="background: #fff; cursor: pointer; padding: 5px 10px;
+        border: 1px solid #ccc; width: 12em" >
+<script type="text/javascript">
   $(function() {
   $('input[name="daterange"]').daterangepicker(
     {    ranges: {
@@ -82,19 +84,18 @@
         }}
        );
     });
-  </script>
-  <br /><input type="submit" value="Choose" />
-  </form>
+</script>
 
-  <h2>Time Range</h2>
-      <form action ="/timeselect" method="post">
-          <input type="text" name = "start_range">
+<h2>Time Range</h2>
+      <input type="text" name="meet_range_start" value="Meeting Start Time (##:##)">
           to
-          <input type="text" name = "end_range">
-      </form>
-    <h2>Duration</h2>
-    <input type="text" name="meet_dur">
+      <input type="text" name="meet_range_end" value="Meeting End Time (##:##)">
 
+<h2>Duration</h2>
+      <input type="text" name="meet_dur">
+
+<br /><input type="submit" value="Choose" />
+</form>
 
     <!--
     Show the calendar list (if we have it).  This will need to be turned into
@@ -102,6 +103,7 @@
     shown in each row (but the order is across then down; I would
     prefer down then across). 
     -->
+
 {% if session.calendars is defined  %}
   <div class="row">
   {% for cal in session.calendars if cal.selected %}
@@ -114,8 +116,32 @@
          {% endif %}
   {% endfor %}
   </div>
+
+    <button onclick ="findBusyFree()">Use Selected Calendars</button>
 {% endif %}
     
+    <script>
+        $SCRIPT_ROOT = {{request.script_root|tojson|safe}}
 
+    function findBusyFree(){
+        cal_selection = []
+        $('input[type=checkbox]').each(function(){
+            if(this.checked){
+            cal_selection.push(this.id)
+            }
+        });
+
+        $.ajax({
+            dataType: "json",
+            url: $SCRIPT_ROOT + '/showBusyFree',
+            data: {selection: cal_selection},
+            complete: function(){
+                location.assign($SCRIPT_ROOT + '/busy.html');}
+        });
+    }
+
+
+    </script>
   </div>  <!-- container (for bootstrap) -->
   </body> </html>
+
