@@ -62,6 +62,9 @@ def choose():
     flask.session['calendars'] = list_calendars(gcal_service)
     return render_template('index.html')
 
+@app.route("/busy")
+def busy():
+    return render_template('busy.html')
 
 ####
 #
