@@ -62,6 +62,7 @@
 {% if session.cal_selection is defined  %}
 <h1>Busy times</h1>
   <div class="row">
+  {% if session.busy_list is defined %}
   {% for event in session.busy_list %}
           <div class="col-md-4">
               <h4>Event: {{event.id}} Start: {{event.start.dateTime}} End: {{event.end.dateTime}}</h4>
@@ -70,9 +71,10 @@
           </div> <div class="row">
          {% endif %}
   {% endfor %}
-
+  {% endif %}
 <h1>Free Times</h1>
     <div class="row">
+  {% if session.free_list is defined %}
   {% for event in session.free_list %}
           <div class="col-md-4">
               <h4>Event: {{event.id}} Start: {{event.start.dateTime}} End: {{event.end.dateTime}}</h4>
@@ -81,6 +83,7 @@
           </div> <div class="row">
          {% endif %}
   {% endfor %}
+  {% endif %}
     <button onclick="confirmSelection()">Confirm Busy and Free Times</button>
   </div>
 {% endif %}

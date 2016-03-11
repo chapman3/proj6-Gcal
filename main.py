@@ -229,9 +229,8 @@ def showBusyFree():
         none
     """
     flask.session['cal_selection'] = request.args.getlist('selection')
-    createBusyList()
-    createFreeList()
-    return
+    #createBusyList()
+    #createFreeList()
 
 
 ####
