@@ -363,12 +363,17 @@ def createFreeList():
 
     free_list = []
     """
-
-    freeblock = agenda.Appt(block_begin,block_end,description)
     """
+    freeblock = agenda.Appt(flask.session['begin_date'],flask.session['end_date'],"Freeblock")
+    print(freeblock)
+    busy_Agenda = agenda.from_list(flask.session['busy_list'])
+    print(busy_Agenda)
+    free_list = busy_Agenda.complement(freeblock)
+
     #TODO: use busy list and complement to create free list
 
     flask.session['free_list'] = free_list
+    print(free_list)
 
 def checkEventRange(start, end):
     """
