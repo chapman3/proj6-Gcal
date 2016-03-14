@@ -125,7 +125,7 @@
 
     function getEvents(){
         cal_selection = []
-        $('input[type=checkbox]').each(function(){
+        $('input[name=cal_check]').each(function(){
             if(this.checked){
             cal_selection.push(this.id)
             }
