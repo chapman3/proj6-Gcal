@@ -318,7 +318,7 @@ def createBusyList():
     credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
     service = get_gcal_service(credentials)
 
-    for cal in flask.session['cal_selection']:
+    for cal in flask.session['calendars']:
         events = service.events().list(calendarId=cal, pageToken=None).execute()
         for event in events['items']:
             #if transparent, not a busy event, continue loop
