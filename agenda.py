@@ -342,12 +342,13 @@ class Agenda:
         desc = freeblock.desc
         cur_time = freeblock.begin
         for appt in self.appts:
-            if appt < freeblock:
+            if appt.begin <= freeblock.end:
                 continue
-            if appt > freeblock:
+            if appt.begin > freeblock.begin:
                 if cur_time < freeblock.end:
-                    comp.append(Appt(cur_time,freeblock.end, desc))
-                    cur_time = freeblock.end
+                    comp.append(Appt(cur_time,freeblock.begin, desc))
+                    cur_time = freeblock.begin
+                    print(comp)
                 break
             if cur_time < appt.begin:
                 # print("Creating free time from", cur_time, "to", appt.begin)
