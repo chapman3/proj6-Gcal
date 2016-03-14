@@ -328,6 +328,7 @@ def createBusyList():
             events = service.freebusy().query(body={"timeMin": timeMin , "timeMax": timeMax, "items": [{"id": temp_id }]}).execute()
             #print(events)
             for event in events['calendars'][temp_id]['busy']:
+                print(event)
                 busy_list.append(event)
     flask.session['busy_list'] = busy_list
 
