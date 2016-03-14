@@ -335,9 +335,10 @@ class Agenda:
            from freeblock.desc.
         """
         print("made it to complement")
+        print(freeblock)
         print(self)
-        copy = self.normalized()
-        print(copy)
+        #copy = self.normalized()
+        #print(copy)
         comp = Agenda()
         desc = freeblock.desc
         cur_time = freeblock.begin
