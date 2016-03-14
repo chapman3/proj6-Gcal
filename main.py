@@ -222,16 +222,8 @@ def setrange():
     flask.session['meet_range_start'] = interpret_time(request.form.get('meet_range_start'))
     flask.session['meet_range_end'] = interpret_time(request.form.get('meet_range_end'))
     flask.session['meet_dur'] = request.form.get('meet_dur')
-    temp_date = (flask.session['begin_date'])
-    temp_time =(flask.session['meet_range_start'])
-    temp_year = temp_time.year
-    temp_day = temp_time.day
-    temp_month = temp_time.month
+    temp_time = arrow.get(flask.session['meet_range_start']).replace(daterange_parts[0])
     print(temp_time)
-    print(temp_date)
-    temp_time.replace(year=temp_year, day = temp_day, month = temp_month).to('local')
-    print(temp_time)
-
     return flask.redirect(flask.url_for("choose"))
 
 @app.route('/showBusyFree', methods=['POST'])
@@ -370,8 +362,10 @@ def createFreeList():
     """
 
     free_list = []
-    freeblock = agenda.Appt(b,e,d)
+    """
 
+    freeblock = agenda.Appt(block_begin,block_end,description)
+    """
     #TODO: use busy list and complement to create free list
 
     flask.session['free_list'] = free_list
