@@ -211,6 +211,7 @@ def setrange():
     daterange = request.form.get('daterange')
     flask.session['daterange'] = daterange
     daterange_parts = daterange.split()
+    print[daterange_parts[0]]
     flask.session['begin_date'] = interpret_date(daterange_parts[0])
     flask.session['end_date'] = interpret_date(daterange_parts[2])
     app.logger.debug("Setrange parsed {} - {}  dates as {} - {}".format(
@@ -223,7 +224,8 @@ def setrange():
     flask.session['meet_dur'] = request.form.get('meet_dur')
     temp_date = (flask.session['begin_date'])
     temp_time =(flask.session['meet_range_start'])
-    print(arrow.get(temp_date, temp_time))
+    print(temp_time)
+    print(temp_date)
 
     return flask.redirect(flask.url_for("choose"))
 
