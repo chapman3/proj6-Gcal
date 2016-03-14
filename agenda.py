@@ -82,7 +82,7 @@ class Appt:
 
     @classmethod
     def from_dict(cls, dict):
-        print("Made it to from_dict")
+        #print("Made it to from_dict")
         return(Appt(arrow.get(dict['start']), arrow.get(dict['end']), "Description here"))
 
     def to_dict(self):
@@ -225,7 +225,7 @@ class Agenda:
             Agenda object containing appointments from list input
 
         """
-        print("made it to from_list")
+        #print("made it to from_list")
         appts = Agenda()
         for appt in list:
             appts.append(Appt.from_dict(appt))
@@ -334,6 +334,7 @@ class Agenda:
            description of the resulting appointments comes
            from freeblock.desc.
         """
+        print("made it to complement")
         copy = self.normalized()
         comp = Agenda()
         desc = freeblock.desc
