@@ -403,7 +403,7 @@ def testComplement():
     busy.append(appt3)
     print(busy)
     free = busy.complement(freeblock)
-    print("Free Tim Gaps should be between 00) and 1100 hours 1/2/16 "
+    print("Free Tim Gaps should be between 000 and 1100 hours 1/2/16 "
           "and between 1200 hours 1/2/16 and 000 hours 1/3/16.")
     print(free)
 if __name__ == '__main__':
