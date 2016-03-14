@@ -320,17 +320,19 @@ def createBusyList():
     service = get_gcal_service(credentials)
 
     for cal in flask.session['calendars']:
-        events = service.events().list(calendarId=cal, pageToken=None).execute()
-        for event in events['items']:
-            #if transparent, not a busy event, continue loop
-            if ('transparency' in event ) and event['transparency'] == 'transparent':
-                continue
-            print(arrow.get(event['start']['dateTime']))
-            begin = arrow.get(event['start']['dateTime'])
-            end = arrow.get(event['end']['dateTime'])
-            if(checkEventRange(begin,end)):
-                new_event = {"desc": event['summary'], "begin": begin, "end": end}
-                busy_list.append(new_event)
+        if(cal['selected']==True):
+            print("Found a selected cal")
+            events = service.events().list(calendarId=cal, pageToken=None).execute()
+            for event in events['items']:
+                #if transparent, not a busy event, continue loop
+                if ('transparency' in event ) and event['transparency'] == 'transparent':
+                    continue
+                print(arrow.get(event['start']['dateTime']))
+                begin = arrow.get(event['start']['dateTime'])
+                end = arrow.get(event['end']['dateTime'])
+                if(checkEventRange(begin,end)):
+                    new_event = {"desc": event['summary'], "begin": begin, "end": end}
+                    busy_list.append(new_event)
     flask.session['busy_list'] = busy_list
 
 def createFreeList():
