@@ -62,6 +62,9 @@ def choose():
     flask.session['calendars'] = list_calendars(gcal_service)
     return render_template('index.html')
 
+@app.route("/busy")
+def busy():
+    return render_template('busy.html')
 
 
 ####
@@ -230,7 +233,7 @@ def showBusyFree():
     flask.session['cal_selection'] = request.args.getlist('selection')
     createBusyList()
     #createFreeList()
-    return render_template('busy.html')
+    return flask.redirect(flask.url_for("busy"))
 
 ####
 #
