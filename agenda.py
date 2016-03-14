@@ -396,7 +396,7 @@ if __name__ == '__main__':
     freeblock = Appt(arrow.get(2016, 1, 2), arrow.get(2016, 1, 3), "A Freeblock")
     appt1 = Appt(arrow.get(2016,1,1,0,0),arrow.get(2016,1,1,12,0),"An appointment before the freeblock")
     appt2 = Appt(arrow.get(2016,1,2,11,00),arrow.get(2016,1,2,12,00),"An appointment during the freeblock")
-    appt3 = Appt(arrow.get(2016,1,4,0,0),arrow.get(2016,1,4,0,0),"An appointment after the freeblock")
+    appt3 = Appt(arrow.get(2016,1,4,0,0),arrow.get(2016,1,4,12,0),"An appointment after the freeblock")
     busy = Agenda()
     busy.append(appt1)
     busy.append(appt2)
