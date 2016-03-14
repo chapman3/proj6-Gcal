@@ -133,10 +133,10 @@
 
         $.ajax({
             dataType: "json",
-            url: $SCRIPT_ROOT + '/showBusyFree',
+            url: $SCRIPT_ROOT + '/busy',
             data: {selection: cal_selection},
             complete: function(){
-                location.assign($SCRIPT_ROOT + '/busy.html');}
+                location.assign($SCRIPT_ROOT + '/busy');}
         });
     }
 
