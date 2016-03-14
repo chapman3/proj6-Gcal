@@ -61,9 +61,9 @@
 
 {% if session.cal_selection is defined  %}
 
-<h1>{{session.meet_desc}}</h1><br>
-<h2>{{session.meet_loc}}</h2><br>
-<h1>Busy times</h1>
+<h2 align="center">Description: {{session.meet_desc}}</h2>
+<h2 align="center">Location: {{session.meet_loc}}</h2>
+<h3>Busy times</h3>
   <div class="row">
   {% if session.busy_list is defined %}
       busy_list is defined <br>
@@ -76,7 +76,7 @@
          {% endif %}
   {% endfor %}
   {% endif %}
-<h1>Free Times</h1>
+<h3>Free Times</h3>
     <div class="row">
   {% if session.free_list is defined %}
   {% for event in session.free_list %}
