@@ -365,10 +365,10 @@ def createFreeList():
     free_list = []
     """
     """
-    freeblock = agenda.Appt(flask.session['begin_date'],flask.session['end_date'],"Freeblock")
-    #print(freeblock)
+    freeblock = agenda.Appt(arrow.get(flask.session['begin_date']),arrow.get(flask.session['end_date']),"Freeblock")
+    print("Freeblock: " + freeblock)
     busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
-    #print(busy_Agenda)
+    print("Busy Agenda" + busy_Agenda)
     free_list = busy_Agenda.complement(freeblock)
 
     #TODO: use busy list and complement to create free list
