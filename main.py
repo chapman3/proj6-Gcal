@@ -224,7 +224,12 @@ def setrange():
     flask.session['meet_dur'] = request.form.get('meet_dur')
     temp_date = (flask.session['begin_date'])
     temp_time =(flask.session['meet_range_start'])
+    temp_hour = temp_time.hour
+    temp_minute = temp_time.minute
+    temp_second = temp_time.second
     print(temp_time)
+    print(temp_date)
+    temp_date.replace(hour=temp_hour, minute = temp_minute, second = temp_second)
     print(temp_date)
 
     return flask.redirect(flask.url_for("choose"))
