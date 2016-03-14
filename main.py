@@ -383,7 +383,7 @@ def createFreeList():
     #print("Freeblock: " + freeblock)
     busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
     print("Busy Agenda" + busy_Agenda)
-    free_list = busy_Agenda.complement(freeblock)
+    #free_list = busy_Agenda.complement(freeblock)
 
     #TODO: use busy list and complement to create free list
 
