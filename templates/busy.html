@@ -67,7 +67,7 @@
   <div class="row">
   {% if session.busy_list is defined %}
       busy_list is defined <br>
-  {% for event in session.busy_list %}
+  {% for event in session.busy_list_display %}
           <div class="col-md-4">
               <h4>Event - Start: {{event.start}} End: {{event.end}}</h4>
           </div>
