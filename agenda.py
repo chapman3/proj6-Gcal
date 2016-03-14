@@ -335,8 +335,8 @@ class Agenda:
            from freeblock.desc.
         """
         print("made it to complement")
-        print(freeblock)
-        print(self)
+        #print(freeblock)
+        #print(self)
         #copy = self.normalized()
         #print(copy)
         comp = Agenda()
@@ -392,7 +392,7 @@ class Agenda:
                 return False
         return True
 
-if __name__ == '__main__':
+def testComplement():
     freeblock = Appt(arrow.get(2016, 1, 2), arrow.get(2016, 1, 3), "A Freeblock")
     appt1 = Appt(arrow.get(2016,1,1,0,0),arrow.get(2016,1,1,12,0),"An appointment before the freeblock")
     appt2 = Appt(arrow.get(2016,1,2,11,00),arrow.get(2016,1,2,12,00),"An appointment during the freeblock")
@@ -403,4 +403,8 @@ if __name__ == '__main__':
     busy.append(appt3)
     print(busy)
     free = busy.complement(freeblock)
+    print("Free Tim Gaps should be between 00) and 1100 hours 1/2/16 "
+          "and between 1200 hours 1/2/16 and 000 hours 1/3/16.")
     print(free)
+if __name__ == '__main__':
+    testComplement()
