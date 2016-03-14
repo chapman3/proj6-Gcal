@@ -367,7 +367,17 @@ def createFreeList():
     """
     """
     print("Made it to createFreeList")
-    freeblock = agenda.Appt(arrow.get(flask.session['begin_date']),arrow.get(flask.session['end_date']),"Freeblock")
+
+    temp_start_date = arrow.get(flask.session['begin_date'])
+    temp_start_min = arrow.get(flask.session['begin_time']).minute
+    temp_start_hour = arrow.get(flask.session['begin_time']).hour
+    temp_start = temp_start_date.replace(hour=temp_start_hour, minute=temp_start_min)
+    temp_end_date = arrow.get(flask.session['end_date'])
+    temp_end_min = arrow.get(flask.session['end_time']).minute
+    temp_end_hour = arrow.get(flask.session['end_time']).hour
+    temp_end = temp_end_date.replace(hour=temp_end_hour, minute=temp_end_min)
+
+    freeblock = agenda.Appt(temp_start,temp_end,"Freeblock")
     print("Freeblock: " + freeblock)
     busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
     print("Busy Agenda" + busy_Agenda)
