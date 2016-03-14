@@ -331,7 +331,7 @@ def createBusyList():
             for event in events['calendars'][temp_id]['busy']:
                 print(event)
                 busy_list.append(event)
-                temp_start = interpret_time(event["start"])
+                temp_start = interpret_time(event["start"]).format("HH:mm:ss")
                 temp_end = interpret_time(event["end"])
                 busy_list_display.append({"Start": temp_start , "End":temp_end })
     flask.session['busy_list'] = busy_list
