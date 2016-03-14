@@ -205,7 +205,7 @@ def setrange():
     Process:
         Store all prerequisite data in a session object.
     """
-    app.logger.debug("Entering setrange")  
+    app.logger.debug("Entering setrange")
     flask.flash("Setrange gave us '{}'".format(
       request.form.get('daterange')))
     daterange = request.form.get('daterange')
@@ -214,7 +214,6 @@ def setrange():
     print(daterange_parts[0])
     flask.session['begin_date'] = interpret_date(daterange_parts[0])
     flask.session['end_date'] = interpret_date(daterange_parts[1])
-    print(flask.session['end_date'])
     app.logger.debug("Setrange parsed {} - {}  dates as {} - {}".format(
       daterange_parts[0], daterange_parts[2],
       flask.session['begin_date'], flask.session['end_date']))
