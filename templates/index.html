@@ -125,11 +125,10 @@
 
     function getEvents(){
         var checked = $( "input:checked" );
-        cal_selection = []
+        var cal_selection = [];
         for(i = 0; i < checked.length; i++){
             cal_selection.push(checked[i].id)
-            }
-        };
+            };
 
         $.ajax({
             type: "POST",
