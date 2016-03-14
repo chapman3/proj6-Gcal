@@ -60,6 +60,9 @@
     -->
 
 {% if session.cal_selection is defined  %}
+    {{session.cal_selection}}
+    {{session.meet_desc}}
+    {{session.meet_loc}}
 <h1>Busy times</h1>
   <div class="row">
   {% if session.busy_list is defined %}
