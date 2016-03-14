@@ -12,6 +12,8 @@ import arrow # Replacement for datetime, based on moment.js
 import datetime # But we still need time
 from dateutil import tz  # For interpreting local times
 
+#agenda
+import agenda
 
 # OAuth2  - Google library implementation for convenience
 from oauth2client import client
@@ -219,6 +221,8 @@ def setrange():
     flask.session['meet_range_start'] = interpret_time(request.form.get('meet_range_start'))
     flask.session['meet_range_end'] = interpret_time(request.form.get('meet_range_end'))
     flask.session['meet_dur'] = request.form.get('meet_dur')
+    print(flask.session['begin_date'])
+    print(flask.session['meet_range_start'])
 
     return flask.redirect(flask.url_for("choose"))
 
@@ -358,6 +362,7 @@ def createFreeList():
     """
 
     free_list = []
+    freeblock = agenda.Appt(b,e,d)
 
     #TODO: use busy list and complement to create free list
 
