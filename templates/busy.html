@@ -98,6 +98,13 @@
 
     function confirmSelection(){
     //TODO: confirmSelection() should generate an email link, not what is below
+    $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: $SCRIPT_ROOT + '/showConfirm',
+            complete: function(){
+                location.assign($SCRIPT_ROOT + '/response');}
+        });
     }
 
     </script>

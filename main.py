@@ -66,6 +66,10 @@ def choose():
 def busy():
     return render_template('busy.html')
 
+@app.route("/response")
+def response():
+    return render_template('response.html')
+
 
 ####
 #
@@ -237,6 +241,10 @@ def showBusyFree():
     #createFreeList()
     return flask.redirect(flask.url_for("busy"))
 
+@app.route('/showConfirm', methods=['POST'])
+def showConfirm():
+    return flask.redirect(flask.url_for("response"))
+
 ####
 #
 #   Initialize session variables 
@@ -335,7 +343,7 @@ def createBusyList():
                 temp_end = arrow.get(event["end"]).format("HH:mm:ss")
                 busy_list_display.append({"start": temp_start , "end":temp_end })
     flask.session['busy_list'] = busy_list
-    print(busy_list_display)
+    #print(busy_list_display)
     flask.session['busy_list_display'] = busy_list_display
 
 def createFreeList():
