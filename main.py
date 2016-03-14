@@ -348,7 +348,7 @@ def createBusyList():
                 temp_end = arrow.get(event["end"]).format("HH:mm:ss")
                 busy_list_display.append({"start": temp_start , "end":temp_end })
     flask.session['busy_list'] = busy_list
-    #print(busy_list)
+    print(busy_list)
     #print(busy_list_display)
     flask.session['busy_list_display'] = busy_list_display
 
@@ -378,6 +378,7 @@ def createFreeList():
     temp_end = temp_end_date.replace(hour=temp_end_hour, minute=temp_end_min)
     print(temp_start)
     print(temp_end)
+    print()
     freeblock = agenda.Appt(temp_start,temp_end,"Freeblock")
     print("Freeblock: " + freeblock)
     busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
