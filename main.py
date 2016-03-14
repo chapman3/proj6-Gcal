@@ -316,6 +316,7 @@ def createBusyList():
         stores busy list in session
     """
     busy_list = []
+    busy_list_display = []
     credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
     service = get_gcal_service(credentials)
     timeMin = flask.session["begin_date"]
@@ -330,7 +331,9 @@ def createBusyList():
             for event in events['calendars'][temp_id]['busy']:
                 print(event)
                 busy_list.append(event)
+                busy_list_display.append({"Start": arrow.get(event["start"].time()), "End": arrow.get(event["end"]).time()})
     flask.session['busy_list'] = busy_list
+    print(busy_list_display)
 
 def createFreeList():
     """
