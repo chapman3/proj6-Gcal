@@ -340,7 +340,7 @@ class Agenda:
         comp = Agenda()
         desc = freeblock.desc
         cur_time = freeblock.begin
-        for appt in copy.appts:
+        for appt in self.appts:
             if appt < freeblock:
                 continue
             if appt > freeblock:
