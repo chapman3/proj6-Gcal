@@ -229,7 +229,7 @@ def setrange():
     temp_month = temp_time.month
     print(temp_time)
     print(temp_date)
-    temp_time.replace(year=temp_year, day = temp_day, month = temp_month).replace(tzinfo=tz.tzlocal())
+    temp_time.replace(year=temp_year, day = temp_day, month = temp_month).to('local')
     print(temp_time)
 
     return flask.redirect(flask.url_for("choose"))
