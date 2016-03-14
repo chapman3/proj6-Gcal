@@ -326,8 +326,9 @@ def createBusyList():
             temp_id = cal["id"]
             print("Found a selected cal")
             events = service.freebusy().query(body={"timeMin": timeMin , "timeMax": timeMax, "items": [{"id": temp_id }]}).execute()
-            print(events)
+            #print(events)
             for event in events['items']:
+                print(event)
                 #if transparent, not a busy event, continue loop
                 if ('transparency' in event ) and event['transparency'] == 'transparent':
                     continue
