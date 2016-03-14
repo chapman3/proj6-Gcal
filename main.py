@@ -327,6 +327,7 @@ def createBusyList():
     returns:
         stores busy list in session
     """
+    print("Made it to createBusyList")
     busy_list = []
     busy_list_display = []
     credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
@@ -365,6 +366,7 @@ def createFreeList():
     free_list = []
     """
     """
+    print("Made it to createFreeList")
     freeblock = agenda.Appt(arrow.get(flask.session['begin_date']),arrow.get(flask.session['end_date']),"Freeblock")
     print("Freeblock: " + freeblock)
     busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
