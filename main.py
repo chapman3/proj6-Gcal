@@ -327,17 +327,11 @@ def createBusyList():
             print("Found a selected cal")
             events = service.freebusy().query(body={"timeMin": timeMin , "timeMax": timeMax, "items": [{"id": temp_id }]}).execute()
             #print(events)
-            for event in events['items']:
-                print(event)
-                #if transparent, not a busy event, continue loop
-                if ('transparency' in event ) and event['transparency'] == 'transparent':
-                    continue
-                print(arrow.get(event['start']['dateTime']))
-                begin = arrow.get(event['start']['dateTime'])
-                end = arrow.get(event['end']['dateTime'])
-                if(checkEventRange(begin,end)):
-                    new_event = {"desc": event['summary'], "begin": begin, "end": end}
-                    busy_list.append(new_event)
+            print(event)
+            begin = arrow.get(event['start']['dateTime'])
+            end = arrow.get(event['end']['dateTime'])
+            for event in events['calendars'][temp_id]['busy']:
+                busy_list.append(event)
     flask.session['busy_list'] = busy_list
 
 def createFreeList():
