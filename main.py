@@ -327,7 +327,6 @@ def createBusyList():
             print("Found a selected cal")
             events = service.freebusy().query(body={"timeMin": timeMin , "timeMax": timeMax, "items": [{"id": temp_id }]}).execute()
             #print(events)
-            print(event)
             for event in events['calendars'][temp_id]['busy']:
                 busy_list.append(event)
     flask.session['busy_list'] = busy_list
