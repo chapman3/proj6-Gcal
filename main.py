@@ -219,6 +219,7 @@ def setrange():
       flask.session['begin_date'], flask.session['end_date']))
     flask.session['freeblock_begin'] = arrow.get(daterange_parts[0])
     print(flask.session['freeblock_begin'])
+    print(flask.session['freeblock_end'])
     flask.session['freeblock_end'] = arrow.get(daterange_parts[2])
     flask.session['meet_desc'] = request.form.get('meet_desc')
     flask.session['meet_loc'] = request.form.get('meet_loc')
