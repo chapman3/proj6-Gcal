@@ -242,7 +242,7 @@ def showBusyFree():
     #print(flask.session['cal_selection'])
     #print(flask.session['calendars'])
     createBusyList()
-    #createFreeList()
+    createFreeList()
     return flask.redirect(flask.url_for("busy"))
 
 @app.route('/showConfirm', methods=['POST'])
