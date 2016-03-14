@@ -69,7 +69,7 @@
       busy_list is defined <br>
   {% for event in session.busy_list %}
           <div class="col-md-4">
-              <h4>Event: {{event.id}} Start: {{event.start.dateTime}} End: {{event.end.dateTime}}</h4>
+              <h4>Event: {{event}} Start: {{event.start.dateTime}} End: {{event.end.dateTime}}</h4>
           </div>
          {% if loop.index is divisibleby 1 %}
           </div> <div class="row">
