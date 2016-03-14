@@ -335,6 +335,7 @@ def createBusyList():
                 temp_end = interpret_time(event["end"])
                 busy_list_display.append({"Start": temp_start , "End":temp_end })
     flask.session['busy_list'] = busy_list
+    print(busy_list_display)
     flask.session['busy_list_display'] = busy_list_display
 
 def createFreeList():
