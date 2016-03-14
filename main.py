@@ -232,6 +232,7 @@ def showBusyFree():
     print("made it to showBusyFree")
     flask.session['cal_selection'] = request.args.getlist('selection')
     print(flask.session['cal_selection'])
+    print(flask.session['calendars'])
     createBusyList()
     #createFreeList()
     return flask.redirect(flask.url_for("busy"))
