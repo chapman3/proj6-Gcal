@@ -82,7 +82,7 @@ class Appt:
 
     @classmethod
     def from_dict(cls, dict):
-        return(Appt(arrow.get(dict['begin']), arrow.get(dict['end']), dict['desc']))
+        return(Appt(arrow.get(dict['start']), arrow.get(dict['end']), "Description here"))
 
     def to_dict(self):
         return({"desc": self.desc, "begin": self.begin, "end":self.end})
