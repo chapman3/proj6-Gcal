@@ -343,9 +343,11 @@ class Agenda:
         cur_time = freeblock.begin
         for appt in self.appts:
             print(appt)
-            #if appt.begin <= freeblock.begin:
-            #    continue
-            if appt.begin > freeblock.begin:
+            if appt.begin <= freeblock.begin:
+                if appt.end > freeblock.begin:
+                    continue
+            if appt.begin >= cur_time:
+                print("Appt happens after cur_time")
                 if cur_time < freeblock.end:
                     comp.append(Appt(cur_time,freeblock.begin, desc))
                     cur_time = freeblock.begin
