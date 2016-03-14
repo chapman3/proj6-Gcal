@@ -229,8 +229,8 @@ def setrange():
     temp_second = temp_time.second
     print(temp_time)
     print(temp_date)
-    temp_date.replace(hour=temp_hour, minute = temp_minute, second = temp_second)
-    print(temp_date)
+    #temp_date.replace(hour=temp_hour, minute = temp_minute, second = temp_second)
+    #print(temp_date)
 
     return flask.redirect(flask.url_for("choose"))
 
