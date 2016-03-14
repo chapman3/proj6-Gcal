@@ -213,9 +213,9 @@ def setrange():
     daterange_parts = daterange.split()
     print(daterange_parts[0])
     flask.session['begin_date'] = interpret_date(daterange_parts[0])
-    flask.session['end_date'] = interpret_date(daterange_parts[1])
+    flask.session['end_date'] = interpret_date(daterange_parts[2])
     app.logger.debug("Setrange parsed {} - {}  dates as {} - {}".format(
-      daterange_parts[0], daterange_parts[2],
+      daterange_parts[0], daterange_parts[1],
       flask.session['begin_date'], flask.session['end_date']))
     flask.session['meet_desc'] = request.form.get('meet_desc')
     flask.session['meet_loc'] = request.form.get('meet_loc')
@@ -367,7 +367,7 @@ def createFreeList():
     """
     """
     print("Made it to createFreeList")
-    freeblock = agenda.Appt(flask.session['freeblock_begin'],flask.session['freeblock_end'],"Freeblock")
+    freeblock = agenda.Appt(arrow.get(flask.session['begin_date']),arrow.get(flask.session['end_date']),"Freeblock")
     print("Freeblock: " + freeblock)
     busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
     print("Busy Agenda" + busy_Agenda)
