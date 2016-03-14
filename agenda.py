@@ -225,6 +225,7 @@ class Agenda:
             Agenda object containing appointments from list input
 
         """
+        print("made it to from_list")
         appts = Agenda()
         for appt in list:
             appts.append(Appt.from_dict(appt))
