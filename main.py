@@ -373,7 +373,7 @@ def createFreeList():
         appt = agenda.Appt(event['start'], event['end'],"description")
         busy_Agenda.append(appt)
         """
-    busy_Agenda = agenda.from_list(flask.session['busy_list'])
+    busy_Agenda = agenda.Agenda.from_list(flask.session['busy_list'])
     print(busy_Agenda)
     free_list = busy_Agenda.complement(freeblock)
 
