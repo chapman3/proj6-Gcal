@@ -222,8 +222,8 @@ def setrange():
     flask.session['meet_range_start'] = interpret_time(request.form.get('meet_range_start'))
     flask.session['meet_range_end'] = interpret_time(request.form.get('meet_range_end'))
     flask.session['meet_dur'] = request.form.get('meet_dur')
-    temp_time = arrow.get(flask.session['meet_range_start']).replace(daterange_parts[0])
-    print(temp_time)
+    #temp_time = arrow.get(flask.session['meet_range_start']).replace(daterange_parts[0])
+    #print(temp_time)
     return flask.redirect(flask.url_for("choose"))
 
 @app.route('/showBusyFree', methods=['POST'])
