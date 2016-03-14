@@ -343,8 +343,8 @@ class Agenda:
         cur_time = freeblock.begin
         for appt in self.appts:
             print(appt)
-            if appt.begin <= freeblock.end:
-                continue
+            #if appt.begin <= freeblock.begin:
+            #    continue
             if appt.begin > freeblock.begin:
                 if cur_time < freeblock.end:
                     comp.append(Appt(cur_time,freeblock.begin, desc))
