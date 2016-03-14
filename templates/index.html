@@ -132,6 +132,7 @@
         });
 
         $.ajax({
+            type: "POST",
             dataType: "json",
             url: $SCRIPT_ROOT + '/showBusyFree',
             data: {selection: cal_selection},
