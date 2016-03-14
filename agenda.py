@@ -335,6 +335,7 @@ class Agenda:
            from freeblock.desc.
         """
         print("made it to complement")
+        print(self)
         copy = self.normalized()
         print(copy)
         comp = Agenda()
