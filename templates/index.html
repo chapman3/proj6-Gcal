@@ -108,7 +108,7 @@
   <div class="row">
   {% for cal in session.calendars if cal.selected %}
           <div class="col-md-4">
-              <input type ="checkbox" name="cal_check" value="{{cal.id}}">
+              <input type ="checkbox" name="cal_check" id="{{cal.id}}"value="{{cal.id}}">
 	   {{ cal.summary }}
           </div>
          {% if loop.index is divisibleby 3 %}
@@ -124,8 +124,10 @@
         $SCRIPT_ROOT = {{request.script_root|tojson|safe}}
 
     function getEvents(){
+        var checked = $( "input:checked" ).length;
+        document.write(checked);
         cal_selection = []
-        $('input[name=cal_check]').each(function(){
+        for(i = 0; i < session.calendars.length; i++){
             if(this.checked){
             cal_selection.push(this.id)
             }
