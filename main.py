@@ -324,6 +324,7 @@ def createBusyList():
             #if transparent, not a busy event, continue loop
             if ('transparency' in event ) and event['transparency'] == 'transparent':
                 continue
+            print(arrow.get(event['start']['dateTime']))
             begin = arrow.get(event['start']['dateTime'])
             end = arrow.get(event['end']['dateTime'])
             if(checkEventRange(begin,end)):
